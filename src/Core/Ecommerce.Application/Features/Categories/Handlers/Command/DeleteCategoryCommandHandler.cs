@@ -1,4 +1,5 @@
-﻿using Ecommerce.Application.Features.Categories.Requests.Command;
+﻿using Ecommerce.Application.Exceptions;
+using Ecommerce.Application.Features.Categories.Requests.Command;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,8 @@ namespace Ecommerce.Application.Features.Categories.Handlers.Command
         {
             //get category by id
             var oldCategory = await _repository.GetAsync(request.Id);  
+            if(oldCategory is null)
+                throw new NotFoundExecption(nameof(Category),request.Id);
             //remove
             await _repository.DeleteAsync(oldCategory.Id);
             return Unit.Value;

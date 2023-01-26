@@ -12,9 +12,10 @@ namespace Ecommerce.Application.Shared
     {
         public static void ConfigureApplicationService(this IServiceCollection services)
         {
-            //Configure AutoMapper && MediatR
+            //Configure AutoMapper && MediatR && Fluient Validation
             services.AddAutoMapper(typeof(CategoryMappingProfile));
             services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
         }
     }
 }

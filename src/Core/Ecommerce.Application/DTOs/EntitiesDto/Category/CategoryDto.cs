@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ecommerce.Application.DTOs.EntitiesDto
+namespace Ecommerce.Application.DTOs.EntitiesDto.Category
 {
-    public class CategoryDto:BaseDto<int>
+    public class CategoryDto : BaseDto<int>
     {
         public string Name { get; set; }
     }

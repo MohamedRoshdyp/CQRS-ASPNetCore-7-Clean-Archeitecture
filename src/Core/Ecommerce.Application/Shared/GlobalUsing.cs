@@ -7,3 +7,19 @@ global using Ecommerce.Application.MappingProfiles;
 global using MediatR;
 global using Ecommerce.Application.Features.Categories.Requests.Query;
 global using Ecommerce.Application.Persistance.Contracts;
+global using Ecommerce.Application.Features.Products.Requests.Queries;
+global using FluentValidation;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
