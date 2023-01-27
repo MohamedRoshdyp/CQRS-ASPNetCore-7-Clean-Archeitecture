@@ -8,8 +8,13 @@ namespace Ecommerce.Domain.Entities
 {
     public class Category:BaseEntity<int>
     {
-        public Category(string name,string description)
+        public Category()
         {
+
+        }
+        public Category(int id,string name,string description)
+        {
+            Id = id;
             Name = name;
             Description = description;
         }

@@ -34,30 +34,31 @@ namespace Ecommerce.Application.Features.Products.Handlers.Command
                 response.Success = false;
                 response.Message = "Falid While Creation";
                 response.Errors = validatorResult.Errors.Select(x => x.ErrorMessage).ToList();
+                return response;
             }
 
             var product = _mapper.Map<Product>(request.ProductDto);
             await _repository.CreateAsync(product);
             response.Success = true;
             response.Message = "Sussfully While Creation";
-            response.Id = request.ProductDto.Id;
+            response.Id = product.Id;
 
             //Send Email New Product
-            try
-            {
-                var email = new EmailMessage
-                {
-                    To = "customer@gmail.com",
-                    Subject = "Send Email Sussfully !",
-                    Body = $"Now Uploding New Product -{request.ProductDto.Name}"
-                };
-              await  _emailSender.SendEmail(email);
-            }
-            catch (Exception)
-            {
+            //try
+            //{
+            //    var email = new EmailMessage
+            //    {
+            //        To = "customer@gmail.com",
+            //        Subject = "Send Email Sussfully !",
+            //        Body = $"Now Uploding New Product -{request.ProductDto.Name}"
+            //    };
+            //  await  _emailSender.SendEmail(email);
+            //}
+            //catch (Exception)
+            //{
 
-                throw;
-            }
+            //    throw;
+            //}
             return response;
         }
     }

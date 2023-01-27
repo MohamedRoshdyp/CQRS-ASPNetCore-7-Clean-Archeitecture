@@ -36,7 +36,7 @@ namespace Ecommerce.Application.Features.Categories.Handlers.Command
             await _repository.CreateAsync(category);
             response.Success = true;
             response.Message = "Sussfully While Creation";
-            response.Id = request.CategoryDto.Id;
+            response.Id = category.Id;
             return response;
         }
     }

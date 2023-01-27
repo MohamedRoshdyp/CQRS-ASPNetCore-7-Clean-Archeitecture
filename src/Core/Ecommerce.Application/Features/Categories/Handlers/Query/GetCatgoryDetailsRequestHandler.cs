@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ecommerce.Application.DTOs.EntitiesDto.Category;
+using Ecommerce.Application.Exceptions;
 
 namespace Ecommerce.Application.Features.Categories.Handlers.Query
 {
@@ -22,7 +23,7 @@ namespace Ecommerce.Application.Features.Categories.Handlers.Query
         {
             var category =await _repository.GetAsync(request.Id);
             if (category is null)
-                throw new Exception();
+                throw new NotFoundExecption(nameof(Category),request.Id);
             return _mapper.Map<CategoryDto>(category);
 
         }

@@ -23,8 +23,8 @@ namespace Ecommerce.Application.DTOs.EntitiesDto.Product.Validators
                 .GreaterThan(0).WithMessage("{PropertyName} greater than  {ComprisonValue}")
                 .MustAsync(async (id, token) =>
                 {
-                    var categoryIdExist = await repository.Exisit(id);
-                    return !categoryIdExist;
+                    var categoryIdExist = await repository.IsCategoryExist(id);
+                    return categoryIdExist;
                 })
                 .WithMessage("{PropertyName} does not exisit ?");
 

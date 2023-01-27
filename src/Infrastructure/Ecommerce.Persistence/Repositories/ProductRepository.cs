@@ -18,5 +18,11 @@ namespace Ecommerce.Persistence.Repositories
 
         public async Task<List<Product>> GetAllAsyncWithInclude()
          => await _context.Products.AsNoTracking().Include(x => x.Category).ToListAsync();
+
+        public async Task<bool> IsCategoryExist(int categoryId)
+        {
+            var result = await _context.Categories.FindAsync(categoryId);
+            return result != null;
+        }
     }
 }
