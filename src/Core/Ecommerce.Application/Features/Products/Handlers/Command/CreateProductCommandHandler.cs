@@ -1,5 +1,7 @@
 ﻿using Ecommerce.Application.DTOs.EntitiesDto.Product.Validators;
 using Ecommerce.Application.Features.Products.Requests.Commands;
+using Ecommerce.Application.Models.Email;
+using Ecommerce.Application.Persistance.Email;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +14,13 @@ namespace Ecommerce.Application.Features.Products.Handlers.Command
     {
         private readonly IProductRepository _repository;
         private readonly IMapper _mapper;
+        private readonly IEmailSender _emailSender;
 
-        public CreateProductCommandHandler(IProductRepository repository,IMapper mapper)
+        public CreateProductCommandHandler(IProductRepository repository,IMapper mapper,IEmailSender emailSender)
         {
             _repository = repository;
             _mapper = mapper;
+            _emailSender = emailSender;
         }
         public async Task<BaseCommandResponse> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
@@ -37,6 +41,23 @@ namespace Ecommerce.Application.Features.Products.Handlers.Command
             response.Success = true;
             response.Message = "Sussfully While Creation";
             response.Id = request.ProductDto.Id;
+
+            //Send Email New Product
+            try
+            {
+                var email = new EmailMessage
+                {
+                    To = "customer@gmail.com",
+                    Subject = "Send Email Sussfully !",
+                    Body = $"Now Uploding New Product -{request.ProductDto.Name}"
+                };
+              await  _emailSender.SendEmail(email);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
             return response;
         }
     }
