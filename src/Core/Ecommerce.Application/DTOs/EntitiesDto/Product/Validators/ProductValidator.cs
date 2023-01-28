@@ -13,11 +13,11 @@ namespace Ecommerce.Application.DTOs.EntitiesDto.Product.Validators
             RuleFor(x => x.Name)
                  .NotNull()
                  .NotEmpty().WithMessage("{PropertyName} is Required !")
-                 .MinimumLength(3).WithMessage("{PropertyName} limit with {ComprisonValue} charcture .")
-                 .MaximumLength(50).WithMessage("{PropertyName} limit with {ComprisonValue} charcture .");
+                 .MinimumLength(3).WithMessage("{PropertyName} limit with {ComparisonValue} charcture .")
+                 .MaximumLength(50).WithMessage("{PropertyName} limit with {ComparisonValue} charcture .");
 
             RuleFor(x => x.Price)
-                .GreaterThan(0).WithMessage("{PropertyName} greater than  {ComprisonValue}");
+                .GreaterThan(0).WithMessage("{PropertyName} greater than  {ComparisonValue}");
 
             RuleFor(x => x.CategoryId)
                 .GreaterThan(0).WithMessage("{PropertyName} greater than  {ComprisonValue}")

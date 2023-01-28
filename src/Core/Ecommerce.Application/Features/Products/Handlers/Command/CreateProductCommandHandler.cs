@@ -14,13 +14,15 @@ namespace Ecommerce.Application.Features.Products.Handlers.Command
     {
         private readonly IProductRepository _repository;
         private readonly IMapper _mapper;
-        private readonly IEmailSender _emailSender;
+        //private readonly IEmailSender _emailSender;
 
-        public CreateProductCommandHandler(IProductRepository repository,IMapper mapper,IEmailSender emailSender)
+        public CreateProductCommandHandler(IProductRepository repository,IMapper mapper
+            //, IEmailSender emailSender
+            )
         {
             _repository = repository;
             _mapper = mapper;
-            _emailSender = emailSender;
+            //_emailSender = emailSender;
         }
         public async Task<BaseCommandResponse> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
