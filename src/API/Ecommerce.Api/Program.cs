@@ -1,4 +1,6 @@
+using Ecommerce.Application.Persistance.Email;
 using Ecommerce.Application.Shared;
+using Ecommerce.Infrastructure.Email;
 using Ecommerce.Infrastructure.Shared;
 using Ecommerce.Persistence.Shared;
 
@@ -14,7 +16,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.ConfigureApplicationService();
 builder.Services.ConfigurePersistenceService(builder.Configuration);
 builder.Services.ConfigureInfrastructureService(builder.Configuration);
-
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 //Configure Cors
 builder.Services.AddCors(opt =>
 {

@@ -14,15 +14,15 @@ namespace Ecommerce.Application.Features.Products.Handlers.Command
     {
         private readonly IProductRepository _repository;
         private readonly IMapper _mapper;
-        //private readonly IEmailSender _emailSender;
+        private readonly IEmailSender _emailSender;
 
-        public CreateProductCommandHandler(IProductRepository repository,IMapper mapper
-            //, IEmailSender emailSender
+        public CreateProductCommandHandler(IProductRepository repository, IMapper mapper
+            , IEmailSender emailSender
             )
         {
             _repository = repository;
             _mapper = mapper;
-            //_emailSender = emailSender;
+            _emailSender = emailSender;
         }
         public async Task<BaseCommandResponse> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
@@ -42,25 +42,33 @@ namespace Ecommerce.Application.Features.Products.Handlers.Command
             var product = _mapper.Map<Product>(request.ProductDto);
             await _repository.CreateAsync(product);
             response.Success = true;
-            response.Message = "Sussfully While Creation";
+            //response.Message = "Sussfully While Creation";
             response.Id = product.Id;
 
             //Send Email New Product
-            //try
-            //{
-            //    var email = new EmailMessage
-            //    {
-            //        To = "customer@gmail.com",
-            //        Subject = "Send Email Sussfully !",
-            //        Body = $"Now Uploding New Product -{request.ProductDto.Name}"
-            //    };
-            //  await  _emailSender.SendEmail(email);
-            //}
-            //catch (Exception)
-            //{
+            try
+            {
+                var email = new EmailMessage
+                {
+                    To = "mroshdi000@gmail.com",
+                    Subject = "Send Email Sussfully !",
+                    Body = $"Now Uploding New Product -{request.ProductDto.Name}"
+                };
+                var result = await _emailSender.SendEmail(email);
+                if (result)
+                {
+                    response.Message = "Succssfully Send Email";
+                }
+                else
+                {
+                    response.Message = "Faild To Send Email";
+                }
+            }
+            catch (Exception)
+            {
 
-            //    throw;
-            //}
+                throw;
+            }
             return response;
         }
     }

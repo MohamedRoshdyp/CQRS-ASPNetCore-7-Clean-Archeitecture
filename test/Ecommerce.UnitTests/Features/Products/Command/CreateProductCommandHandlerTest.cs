@@ -3,6 +3,7 @@ using Ecommerce.Application.DTOs.EntitiesDto.Category;
 using Ecommerce.Application.DTOs.EntitiesDto.Product;
 using Ecommerce.Application.Features.Products.Handlers.Command;
 using Ecommerce.Application.Features.Products.Requests.Commands;
+using Ecommerce.Application.Persistance.Email;
 using Ecommerce.Application.Responses;
 using Ecommerce.UnitTests.Mocks;
 using Shouldly;
@@ -20,6 +21,7 @@ namespace Ecommerce.UnitTests.Features.Products.Command
         private readonly Mock<IProductRepository> _moqrepo;
         private readonly ProductDto _productDto;
         private readonly CreateProductCommandHandler _hadler;
+        private readonly IEmailSender _sender;
         public CreateProductCommandHandlerTest()
         {
             _moqrepo = MockProductRepository.GetProductRepository();
@@ -29,7 +31,7 @@ namespace Ecommerce.UnitTests.Features.Products.Command
                 c.AddProfile<ProductMappingProfile>();
             });
             _mapper = mapperconfig.CreateMapper();
-            _hadler = new CreateProductCommandHandler(_moqrepo.Object, _mapper);
+            _hadler = new CreateProductCommandHandler(_moqrepo.Object, _mapper,_sender);
             _productDto = new ProductDto
             {
                 Id = 3,
